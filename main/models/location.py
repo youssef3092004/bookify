@@ -14,6 +14,7 @@ class Location(models.Model):
     def to_dict(self):
         """Convert the model instance to a dictionary."""
         return {
+            "id": str(self.id),
             "country": self.country,
             "city": self.city,
             "address": self.address,
