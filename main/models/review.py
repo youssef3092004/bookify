@@ -8,6 +8,7 @@ class review(models.Model):
     description = models.CharField(max_length=100)
     created_at = models.DateTimeField(default=datetime.now)
     updated_at = models.DateTimeField(default=datetime.now)
+    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='reviews')
 
     def to_dict(self):
         """Convert the model instance to a dictionary."""
