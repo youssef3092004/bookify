@@ -7,6 +7,7 @@ class Amenity(models.Model):
     name = models.CharField(max_length=100)
     created_at = models.DateTimeField(default=datetime.now)
     updated_at = models.DateTimeField(default=datetime.now)
+    hotel_amenities = models.ManyToManyField('Hotel', through='HotelAmenity')
 
     def to_dict(self):
         """Convert the model instance to a dictionary."""
