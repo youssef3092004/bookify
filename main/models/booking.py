@@ -7,7 +7,7 @@ class Booking(models.Model):
     check_in = models.DateTimeField()
     check_out = models.DateTimeField()
     total_price = models.FloatField()
-    status = models.BooleanField(default='Pending') #! Pending / Confirmed / Cancelled
+    status = models.CharField(max_length=20, default='Pending', choices=[('Pending', 'Pending'), ('Confirmed', 'Confirmed'), ('Cancelled', 'Cancelled')]) #! Pending / Confirmed / Cancelled
     created_at = models.DateTimeField(default=datetime.now)
     updated_at = models.DateTimeField(default=datetime.now)
     user = models.ForeignKey ('User', on_delete=models.CASCADE, related_name='booking')

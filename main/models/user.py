@@ -8,7 +8,7 @@ class User(models.Model):
     fname = models.CharField(max_length=100)
     lname = models.CharField(max_length=100)
     address = models.CharField(max_length=255)
-    phone = models.IntegerField(unique=True)
+    phone = models.CharField(max_length=15, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     password = models.CharField(max_length=100)
     created_at = models.DateTimeField(default=datetime.now)

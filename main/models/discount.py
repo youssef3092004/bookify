@@ -8,7 +8,7 @@ class Discount(models.Model):
     discount = models.FloatField()
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
-    status = models.BooleanField(default='Active') #! Active/Inactive
+    status = models.CharField(max_length=20, default='Active', choices=[('Active', 'Active'), ('Inactive', 'Inactive')]) #! Active/Inactive
     created_at = models.DateTimeField(default=datetime.now)
     updated_at = models.DateTimeField(default=datetime.now)
 

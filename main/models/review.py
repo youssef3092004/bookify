@@ -2,7 +2,7 @@ from django.db import models
 from uuid import uuid4
 from datetime import datetime
 
-class review(models.Model):
+class Review(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     rating = models.IntegerField() #! Rating (1-5)
     description = models.CharField(max_length=100)

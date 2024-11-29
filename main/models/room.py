@@ -11,7 +11,6 @@ class Room(models.Model):
     created_at = models.DateTimeField(default=datetime.now)
     updated_at = models.DateTimeField(default=datetime.now)
     hotel = models.ForeignKey('Hotel', on_delete=models.CASCADE, related_name='rooms')
-    booking = models.ForeignKey('Booking', on_delete=models.CASCADE, related_name='rooms')
 
     def to_dict(self):
         """Convert the model instance to a dictionary."""

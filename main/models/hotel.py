@@ -15,7 +15,7 @@ class Hotel(models.Model):
 
 #! relationships
     location = models.ForeignKey('Location', on_delete=models.CASCADE, related_name='hotels')
-    rooms = models.ManyToManyField('Room', related_name='hotels')
+    rooms = models.ForeignKey('Room', on_delete=models.CASCADE, related_name='hotels')
     amenities = models.ManyToManyField('Amenity', related_name='hotels')
     reviews = models.ManyToManyField('Review', related_name='hotels')
 
