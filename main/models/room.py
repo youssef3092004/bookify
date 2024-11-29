@@ -4,14 +4,13 @@ from datetime import datetime
 
 class Room(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    room_type = models.CharField(max_length=20, default='Single') #! Single, Double, Triple, Suite, deluxe etc
+    room_type = models.CharField(max_length=20, default='Single', choices=[('Single', 'Single'), ('Double', 'Double'), ('Triple', 'Triple'), ('Suite', 'Suite'), ('deluxe', 'deluxe')])
     room_number = models.IntegerField()
     price = models.FloatField()
-    status = models.CharField(max_length=20, default='Available') #! Available, Booked, Under Maintenance
+    status = models.CharField(max_length=20, default='Available', choices=[('Available', 'Available') ('Booked', 'Booked'), ('Under Maintenance', 'Under Maintenance')])
     created_at = models.DateTimeField(default=datetime.now)
     updated_at = models.DateTimeField(default=datetime.now)
     hotel = models.ForeignKey('Hotel', on_delete=models.CASCADE, related_name='rooms')
-    booking = models.ForeignKey('Booking', on_delete=models.CASCADE, related_name='rooms')
 
     def to_dict(self):
         """Convert the model instance to a dictionary."""
