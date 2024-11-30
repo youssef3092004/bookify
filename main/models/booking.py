@@ -1,6 +1,6 @@
 from django.db import models
 from uuid import uuid4
-from datetime import datetime
+from django.utils import timezone
 
 class Booking(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
@@ -8,8 +8,8 @@ class Booking(models.Model):
     check_out = models.DateTimeField()
     total_price = models.FloatField()
     status = models.CharField(max_length=20, default='Pending', choices=[('Pending', 'Pending'), ('Confirmed', 'Confirmed'), ('Cancelled', 'Cancelled')]) #! Pending / Confirmed / Cancelled
-    created_at = models.DateTimeField(default=datetime.now)
-    updated_at = models.DateTimeField(default=datetime.now)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey ('User', on_delete=models.CASCADE, related_name='booking')
     hotel = models.ForeignKey('Hotel', on_delete=models.CASCADE, related_name='booking')
     room = models.ForeignKey('Room', on_delete=models.CASCADE, related_name='booking')
@@ -30,4 +30,4 @@ class Booking(models.Model):
         }
 
     def __str__(self):
-        return f"{self.user.username} - {self.hotel.name} - {self.room.room_type} - {self.check_in} to {self.check_out}"    
+        return f"Booking for {self.user.username} in room {self.room.room_number} from {self.check_in} to {self.check_out}"
