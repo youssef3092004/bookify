@@ -1,6 +1,6 @@
 from django.db import models
 from uuid import uuid4
-from datetime import datetime
+from django.utils import timezone
 
 class Discount(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
@@ -9,9 +9,8 @@ class Discount(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     status = models.CharField(max_length=20, default='Active', choices=[('Active', 'Active'), ('Inactive', 'Inactive')]) #! Active/Inactive
-    created_at = models.DateTimeField(default=datetime.now)
-    updated_at = models.DateTimeField(default=datetime.now)
-
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
     def to_dict(self):
         """Convert the model instance to a dictionary."""
         return {
