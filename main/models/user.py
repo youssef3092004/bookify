@@ -1,6 +1,6 @@
 from django.db import models
 from uuid import uuid4
-from datetime import datetime
+from django.utils import timezone
 
 class User(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
@@ -11,9 +11,8 @@ class User(models.Model):
     phone = models.CharField(max_length=15, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     password = models.CharField(max_length=100)
-    created_at = models.DateTimeField(default=datetime.now)
-    updated_at = models.DateTimeField(default=datetime.now)
-
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
     def to_dict(self):
         """Convert the model instance to a dictionary."""
         return {
