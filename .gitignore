@@ -11,3 +11,18 @@ __pycache__/
 venv/
 ENV/
 env/
+
+# Ignore SQLite database
+db.sqlite3
+
+# Ignore migration files
+main/migrations/*.py
+
+# Ignore all Python bytecode files
+*.pyc
+*.pyo
+
+# Ignore other common unwanted files
+*.log
+*.bak
+*.swp
