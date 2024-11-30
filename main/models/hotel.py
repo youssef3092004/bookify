@@ -1,23 +1,24 @@
 from django.db import models
 from uuid import uuid4
-from datetime import datetime
+from django.utils import timezone
+from django.core.validators import MinValueValidator, MaxValueValidator
+from .HotelAmenity import HotelAmenity
 
 class Hotel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name = models.CharField(max_length=100)
-    property_type = models.CharField(max_length=50, null=False)  #! Hotel, Villa, etc.
-    star_rating = models.IntegerField(null=False)  #! Star rating (1-5)
-    num_rooms = models.IntegerField(null=False)
-    contact_info = models.CharField(max_length=255, null=True, blank=True)
-    images = models.JSONField(null=True, blank=True)  
-    created_at = models.DateTimeField(default=datetime.now, editable=False)
-    updated_at = models.DateTimeField(default=datetime.now)
+    property_type = models.CharField(max_length=50, null=True, default='Hotel')  #! Hotel, Villa, etc.
+    star_rating = models.IntegerField(null=False, validators=[MinValueValidator(1), MaxValueValidator(5)])  #! Star rating (1-5)
+    num_rooms = models.IntegerField(null=True, default=50)
+    images = models.JSONField(null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
 
 #! relationships
     location = models.ForeignKey('Location', on_delete=models.CASCADE, related_name='hotels')
-    rooms = models.ForeignKey('Room', on_delete=models.CASCADE, related_name='hotels')
-    amenities = models.ManyToManyField('Amenity', related_name='hotels')
-    reviews = models.ManyToManyField('Review', related_name='hotels')
+    rooms = models.ManyToManyField('Room', through=HotelAmenity, related_name='hotels')
+    amenities = models.ManyToManyField('Amenity', through=HotelAmenity, related_name='hotels')
+    reviews = models.ManyToManyField('Review', related_name='hotel_reviews')
 
     def to_dict(self):
         """Convert the model instance to a dictionary."""
