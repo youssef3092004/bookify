@@ -1,7 +1,7 @@
 """ Model definition for Payment. """
 from django.db import models
 from uuid import uuid4
-from datetime import datetime
+from django.utils import timezone
 
 
 class Payment(models.Model):
@@ -18,8 +18,8 @@ class Payment(models.Model):
                                  choices=[('Pending', 'Pending'),
                                           ('Paid', 'Paid'),
                                           ('Failed', 'Failed')])
-    created_at = models.DateTimeField(default=datetime.now)
-    updated_at = models.DateTimeField(default=datetime.now)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='payment')
     booking = models.ForeignKey('Booking', on_delete=models.CASCADE, related_name='payment')
 
